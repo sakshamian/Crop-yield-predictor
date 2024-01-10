@@ -4,8 +4,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <title>Crop yield</title>
   <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.css" />
+  <style>
+    /* Styles for the popup */
+    #popup-card {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,84 +42,82 @@
     </div>
   </nav>
 
-  <!--	Year	average_rain_fall_mm_per_year	pesticides_tonnes	avg_temp	Area	Item-->
-  <div class="container mt-3">
+  <div class="container mt-3" id="content">
     <h4 class="my-0">Enter required details here</h4>
     <form action="/predict" method="post">
       <div class="form-group">
-        <label class="form-label mt-2 mb-0" for="Year" >Year</label>
-        <input 
-          type="number" 
-          class="form-control" 
-          name="Year" 
-          step="any" 
-          value="2013"
-          required
-        />
+        <label class="form-label mt-2 mb-0" for="Year">Year</label>
+        <input type="number" class="form-control" name="Year" step="any" value="2013" required />
       </div>
       <div class="form-group">
         <label class="form-label mt-2 mb-0" for="average_rain_fall_mm_per_year">Average rainfall (mm per year)</label>
-        <input 
-          type="number" 
-          class="form-control" 
-          name="average_rain_fall_mm_per_year" 
-          step="any"
-        />
+        <input type="number" class="form-control" name="average_rain_fall_mm_per_year" step="any" />
       </div>
       <div class="form-group">
         <label class="form-label mt-2 mb-0" for="pesticides_tonnes">Pesticides (tonnes)</label>
-        <input 
-          type="number" 
-          class="form-control" 
-          name="pesticides_tonnes" 
-          step="any"
-        />
+        <input type="number" class="form-control" name="pesticides_tonnes" step="any" />
       </div>
       <div class="form-group">
-        <label class="form-label mt-2 mb-0" for="avg_temp">Average temperature</label>
-        <input 
-          type="number" 
-          class="form-control" 
-          name="avg_temp" 
-          step="any"
-        />
+        <label class="form-label mt-2 mb-0" for="avg_temp">Average temperature (°C)</label>
+        <input type="number" class="form-control" name="avg_temp" step="any" />
       </div>
       <div class="form-group">
         <label class="form-label mt-2 mb-0" for="Area">Country</label>
-        <input 
-          type="text" 
-          class="form-control" 
-          name="Area"
-        />
-      </div>
-      <!-- <div class="form-group">
-        <label for="exampleSelect1" class="form-label mt-4">Country</label>
-        <select class="form-select" id="exampleDisabledSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+        <select class="form-select" name="Area" id="Area">
+          {% for country in countries %}
+          <option value="{{ country }}">{{country}}</option>
+          {% endfor %}
         </select>
-      </div> -->
+      </div>
       <div class="form-group">
         <label class="form-label mt-2 mb-0" for="Item">Crop name</label>
-        <input 
-          type="text" 
-          class="form-control"   
-          name="Item"
-        />
+        <select class="form-select" name="Item" id="Item">
+          {% for crop in crops %}
+          <option value="{{ crop }}">{{crop}}</option>
+          {% endfor %}
+        </select>
       </div>
-      <button type="submit" class="btn btn-primary my-3 px-5" data-toggle="modal" data-target="#modal">Predict</button>
+      <button type="submit" class="btn btn-primary my-3 px-5">Predict</button>
     </form>
-
-    {% if prediction %}
-    <h1 class="text-center"> Predicted Yield: <br>{{prediction[0][0]}}</h1>
-    {% endif %}
   </div>
-
+  {% if prediction %}
+  <div id="popup-card" class="p-6 w-50">
+    <div class="d-flex align-items-center">
+      <p class="px-3">Predicted Yield:</p>
+      <p id="result" class="lead">
+        {{prediction[0][0]}} hg/ha
+      </p>
+    </div>
+    <div class="container text-end">
+      <button type="button" class="btn btn-success" onclick="copyText()">Copy</button>
+      <button type="button" class="btn btn-danger" onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  {% endif %}
 
   <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  {% if prediction %}
+  <script>
+    // Function to open the popup
+    function openPopup() {
+      document.getElementById("popup-card").style.display = "block";
+      document.getElementById("content").style.opacity = "0.6";
+    }
+
+    // Function to close the popup
+    function closePopup() {
+      document.getElementById("popup-card").style.display = "none";
+      document.getElementById("content").style.opacity = "1";
+    }
+
+    function copyText() {
+      const text = document.getElementById("result");
+      navigator.clipboard.writeText(text.innerHTML);
+    }
+
+    openPopup();
+  </script>
+  {% endif %}
 </body>
 
 </html>
