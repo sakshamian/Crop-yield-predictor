@@ -23,13 +23,13 @@ def index():
 def predict():
     if request.method == 'POST':
         Year = request.form['Year']
-        average_rain_fall_mm_per_year = request.form['average_rain_fall_mm_per_year']
-        pesticides_tonnes = request.form['pesticides_tonnes']
+        avg_rain = request.form['avg_rain']
+        fertlizer = request.form['fertlizer']
         avg_temp = request.form['avg_temp']
-        Area = request.form['Area']
+        Area = 'India'
         Item  = request.form['Item']
 
-        features = np.array([[Year,average_rain_fall_mm_per_year,pesticides_tonnes,avg_temp,Area,Item]],dtype=object)
+        features = np.array([[Year,avg_rain,fertlizer,avg_temp,Area,Item]],dtype=object)
         transformed_features = preprocessor.transform(features)
         prediction = dtr.predict(transformed_features).reshape(1,-1)
 

@@ -50,24 +50,16 @@
         <input type="number" class="form-control" name="Year" step="any" value="2013" required />
       </div>
       <div class="form-group">
-        <label class="form-label mt-2 mb-0" for="average_rain_fall_mm_per_year">Average rainfall (mm per year)</label>
-        <input type="number" class="form-control" name="average_rain_fall_mm_per_year" step="any" />
+        <label class="form-label mt-2 mb-0" for="avg_rain">Average rainfall (mm per year)</label>
+        <input type="number" class="form-control" name="avg_rain" step="any" />
       </div>
       <div class="form-group">
-        <label class="form-label mt-2 mb-0" for="pesticides_tonnes">Pesticides (tonnes)</label>
-        <input type="number" class="form-control" name="pesticides_tonnes" step="any" />
+        <label class="form-label mt-2 mb-0" for="fertlizer">Fertilizer (kg)</label>
+        <input type="number" class="form-control" name="fertlizer" step="any" />
       </div>
       <div class="form-group">
         <label class="form-label mt-2 mb-0" for="avg_temp">Average temperature (°C)</label>
         <input type="number" class="form-control" name="avg_temp" step="any" />
-      </div>
-      <div class="form-group">
-        <label class="form-label mt-2 mb-0" for="Area">Country</label>
-        <select class="form-select" name="Area" id="Area">
-          {% for country in countries %}
-          <option value="{{ country }}">{{country}}</option>
-          {% endfor %}
-        </select>
       </div>
       <div class="form-group">
         <label class="form-label mt-2 mb-0" for="Item">Crop name</label>
