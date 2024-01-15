@@ -1,4 +1,4 @@
-,Area,Item,Year,hg/ha_yield,avg_rain,fertilizer,avg_temp
+,area,item,year,yield,avg_rain,fertilizer,avg_temp
 0,Albania,Maize,1990,36613,1485.0,121.0,16.37
 1,Albania,Potatoes,1990,66667,1485.0,121.0,16.37
 2,Albania,"Rice, paddy",1990,23333,1485.0,121.0,16.37
