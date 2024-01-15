@@ -5,7 +5,7 @@ import pickle
 import sklearn
 print(sklearn.__version__)
 #loading models
-dtr = pickle.load(open('dtr.pkl','rb'))
+rdf = pickle.load(open('rdf.pkl','rb'))
 preprocessor = pickle.load(open('preprocessor.pkl','rb'))
 df = pd.read_csv("./yield_df.csv")
 countries =  df['Area'].unique()
@@ -31,7 +31,7 @@ def predict():
 
         features = np.array([[Year,avg_rain,fertlizer,avg_temp,Area,Item]],dtype=object)
         transformed_features = preprocessor.transform(features)
-        prediction = dtr.predict(transformed_features).reshape(1,-1)
+        prediction = rdf.predict(transformed_features).reshape(1,-1)
 
         return render_template('index.html',prediction = prediction, countries=countries, crops=crops)
 
