@@ -25,7 +25,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-primary py-3" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Crop yield predictor</a>
+      <a class="navbar-brand" href="/">Crop yield prediction model</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,7 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav ms-auto d-flex">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Home
+            <a class="nav-link active" href="/">Home
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
@@ -100,6 +100,7 @@
     function closePopup() {
       document.getElementById("popup-card").style.display = "none";
       document.getElementById("content").style.opacity = "1";
+      window.location.href = "/";
     }
 
     function copyText() {
